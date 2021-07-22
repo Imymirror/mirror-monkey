@@ -1,0 +1,131 @@
+
+[[file:README_zh.org][中文 README]]
+
+* introduce
+
+This repository was created because I wanted to learn C++. After finishing reading two book  <C++ Primer> and <CMake Cookbook>, I needed to find a project to learn by doing. 
+
+It's been a dream of mine since college to implement a programming language all by myself, even if it's just a toy. 
+
+meanwhile, I was reading the book : Thorsten Ball <Writing a Interpreter in Go>.
+
+A bold idea came to me: why don't I rewrite the Interpreter's Golang code of this book in C++ ? so I can learn C++ , and at the same time implement a simple Interpreter from scratch .
+
+it took me about 24 days to complete the C++ code implementation, which replicates all the functionality of the Golang code. 
+
+* Environment Requirements
+- CMake 3.5 or later
+- C++ 20
+* Language features
+There are no dependencies on third-party libraries other than Catch2(catch.hpp) for unit testing. 
+
+- C-like syntax
+- variable bindings
+- integers and booleans
+- arithmetic expressions
+- built-in functions
+- first-class and higher-order functions
+- closures
+- a string data structure
+- an array data structure
+- a hash data structure
+
+#+begin_src cpp
+let age = 1;
+let name = "Monkey";
+let result = 10 * (20 / 2);
+
+let myArray = [1, 2, 3, 4, 5];
+let thorsten = {"name": "Thorsten", "age": 28};
+
+myArray[0] // => 1
+thorsten["name"] // => "Thorsten"
+
+let add = fn(a, b) { return a + b; };
+let add = fn(a, b) { a + b; };
+add(1, 2);
+
+let fibonacci = fn(x) {
+  if (x == 0) {
+    0
+  } else {
+    if (x == 1) {
+      1
+    } else {
+      fibonacci(x - 1) + fibonacci(x - 2);
+    }
+  }
+};
+
+
+let twice = fn(f, x) {
+  return f(f(x));
+};
+
+let addTwo = fn(x) {
+  return x + 2;
+};
+twice(addTwo, 2); // => 6
+
+
+let map = fn(arr, f) {
+  let iter = fn(arr, accumulated) { 
+    if (len(arr) == 0) {
+      accumulated
+    } else {
+      iter(rest(arr), push(accumulated, f(first(arr))));
+    } 
+  };
+  iter(arr, []);
+};
+
+let a = [1, 2, 3, 4];
+let double = fn(x) { x * 2 }; 
+map(a, double);
+#+end_src
+* build , test, repl
+** build
+#+begin_src sh
+➜  mkdir build
+➜  cd build
+➜  cmake ..
+➜  cmake --build .
+#+end_src
+** run test cases : ~ctest~  or ~ctest -V~ 
+#+begin_src sh
+➜ ctest
+Test project /Users/path/to/project/build
+
+    Start 1: test_lexer
+1/5 Test #1: test_lexer .......................   Passed    0.01 sec
+    Start 2: test_ast
+2/5 Test #2: test_ast .........................   Passed    0.02 sec
+    Start 3: test_object
+3/5 Test #3: test_object ......................   Passed    0.01 sec
+    Start 4: test_parser
+4/5 Test #4: test_parser ......................   Passed    0.03 sec
+    Start 5: test_evaluator
+5/5 Test #5: test_evaluator ...................   Passed    0.03 sec
+
+#+end_src
+** run repl : ~./bin/mirror~ 
+#+begin_src 
+➜  ./bin/mirror
+Hello! This is the Mirror-Monkey programming language!
+Feel free to type in commands
+
+
+	########################
+	#╭━━╮╱╱╱╱╱╱╱╱╭╮        #
+	#╰┃┃╋━━┳┳╮╭━━╋╋┳┳┳┳━┳┳╮#
+	#╭┃┃┫┃┃┃┃┃┃┃┃┃┃╭┫╭┫╋┃╭╯#
+	#╰━━┻┻┻╋╮┃╰┻┻┻┻╯╰╯╰━┻╯ #
+	#╱╱╱╱╱╱╰━╯             #
+	########################
+
+>> let add = fn(a, b) { return a + b; };
+let add = fn(a, b) return (a + b);;
+>> add(1, 2);
+add(1, 2)
+3
+#+end_src

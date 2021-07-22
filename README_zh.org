@@ -1,0 +1,130 @@
+
+[[file:README.org][English README]]
+
+* introduce
+这个仓库的建立, 起源于我想学习 C++. 在看完 C++ Primer 和 CMake Cookboo 这两本书之后, 我需要找个项目来演练一下. 
+
+自己动手实现一门编程语言从大学开始就是我的一个梦想, 即使只是一个玩具. 
+
+恰逢其时, 我正在看 Thorsten Ball <Writing a Interpreter in Go> 这本书.
+
+一个大胆的想法涌上心头: 我何不将这本书里 Interpreter 的 Golang 代码, 重新用 C++ 写一遍, 这样既学习了 C++ 又自己动手从零实现了一门简单的脚本语言.
+
+于是, 我花了 24 天左右完成了 C++ 版本的实现, 完整复制了 Golang 代码的所有功能. 
+* 环境要求
+- CMake 3.5 or later
+- C++ 20
+* 语言特性
+除了引入单元测试的 Catch2(catch.hpp),  没有依赖其它的第三方库. 
+
+特性:
+- C-like syntax
+- variable bindings
+- integers and booleans
+- arithmetic expressions
+- built-in functions
+- first-class and higher-order functions
+- closures
+- a string data structure
+- an array data structure
+- a hash data structure
+
+#+begin_src cpp
+let age = 1;
+let name = "Monkey";
+let result = 10 * (20 / 2);
+
+let myArray = [1, 2, 3, 4, 5];
+let thorsten = {"name": "Thorsten", "age": 28};
+
+myArray[0] // => 1
+thorsten["name"] // => "Thorsten"
+
+let add = fn(a, b) { return a + b; };
+let add = fn(a, b) { a + b; };
+add(1, 2);
+
+let fibonacci = fn(x) {
+  if (x == 0) {
+    0
+  } else {
+    if (x == 1) {
+      1
+    } else {
+      fibonacci(x - 1) + fibonacci(x - 2);
+    }
+  }
+};
+
+
+let twice = fn(f, x) {
+  return f(f(x));
+};
+
+let addTwo = fn(x) {
+  return x + 2;
+};
+twice(addTwo, 2); // => 6
+
+
+let map = fn(arr, f) {
+  let iter = fn(arr, accumulated) { 
+    if (len(arr) == 0) {
+      accumulated
+    } else {
+      iter(rest(arr), push(accumulated, f(first(arr))));
+    } 
+  };
+  iter(arr, []);
+};
+
+let a = [1, 2, 3, 4];
+let double = fn(x) { x * 2 }; 
+map(a, double);
+#+end_src
+* build , test, repl
+** build
+#+begin_src sh
+➜  mkdir build
+➜  cd build
+➜  cmake ..
+➜  cmake --build .
+#+end_src
+** run test cases : ~ctest~  or ~ctest -V~ 
+#+begin_src sh
+➜ ctest
+Test project /Users/path/to/project/build
+
+    Start 1: test_lexer
+1/5 Test #1: test_lexer .......................   Passed    0.01 sec
+    Start 2: test_ast
+2/5 Test #2: test_ast .........................   Passed    0.02 sec
+    Start 3: test_object
+3/5 Test #3: test_object ......................   Passed    0.01 sec
+    Start 4: test_parser
+4/5 Test #4: test_parser ......................   Passed    0.03 sec
+    Start 5: test_evaluator
+5/5 Test #5: test_evaluator ...................   Passed    0.03 sec
+
+#+end_src
+** run repl : ~./bin/mirror~ 
+#+begin_src 
+➜  ./bin/mirror
+Hello! This is the Mirror-Monkey programming language!
+Feel free to type in commands
+
+
+	########################
+	#╭━━╮╱╱╱╱╱╱╱╱╭╮        #
+	#╰┃┃╋━━┳┳╮╭━━╋╋┳┳┳┳━┳┳╮#
+	#╭┃┃┫┃┃┃┃┃┃┃┃┃┃╭┫╭┫╋┃╭╯#
+	#╰━━┻┻┻╋╮┃╰┻┻┻┻╯╰╯╰━┻╯ #
+	#╱╱╱╱╱╱╰━╯             #
+	########################
+
+>> let add = fn(a, b) { return a + b; };
+let add = fn(a, b) return (a + b);;
+>> add(1, 2);
+add(1, 2)
+3
+#+end_src

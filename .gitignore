@@ -2,4 +2,6 @@ build
 .vscode
 .cache
 .DS_Store
+.projectile
+.gitignore
 .clang-format

@@ -31,9 +31,10 @@ class Hash : public Object {
         auto &pairs = *m_pairs;
         auto it = pairs.begin();
         while (it != pairs.end()) {
-            auto key = it->first;
-            auto value = it->second.get();
-            ret += key.Inspect() + ":" + value->Inspect();
+            auto hash_pair = it->second;
+            auto key = (*hash_pair).m_key;
+            auto value = (*hash_pair).m_value;
+            ret += key->Inspect() + ":" + value->Inspect();
             it++;
         }
 

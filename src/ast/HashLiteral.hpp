@@ -36,7 +36,7 @@ class HashLiteral : public Expression {
         }
 
         ret += "}";
-        return "";
+        return ret;
     };
 };
 }

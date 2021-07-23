@@ -6,10 +6,11 @@
 #include <vector>
 #include "Constant.hpp"
 
-using namespace token;
+using namespace mirror::token;
 
 using namespace std;
 
+namespace mirror {
 class Token {
   public:
     TOKEN_TYPE m_type;
@@ -31,4 +32,5 @@ class Token {
     friend ostream &operator<<(ostream &os, const Token &t);
     static string token_type_value(TOKEN_TYPE t);
 };
+}
 #endif /* TOKEN_HPP */

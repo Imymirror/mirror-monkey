@@ -8,8 +8,10 @@
 
 
 using namespace std;
+using namespace mirror;
 using namespace object;
 
+namespace mirror {
 class Any_Function {
   public:
     virtual ~Any_Function() {}
@@ -32,5 +34,5 @@ class Builtin : public Object {
     OBJECT_TYPE type() { return OBJECT_TYPE::BUILTIN_OBJ; };
     string Inspect() { return "builtin function"; };
 };
-
+}
 #endif /* BUILTIN_HPP */

@@ -7,10 +7,13 @@
 
 #include "Object.hpp"
 
-class Object;
+using namespace mirror;
+
+// class Object;
 
 using namespace std;
 
+namespace mirror {
 class Environment : public enable_shared_from_this<Environment> {
   public:
     map<string, shared_ptr<Object>> m_store;
@@ -26,10 +29,10 @@ class Environment : public enable_shared_from_this<Environment> {
         shared_ptr<Object> ret;
         auto it = m_store.find(name);
         if (it != m_store.end()) {
-     
+
             ret = it->second;
         } else {
-            
+
             if (m_outer)
                 ret = m_outer->get(name);
         }
@@ -52,5 +55,5 @@ new_enclosed_environment(shared_ptr<Environment> outer) {
     return env;
 }
 } // namespace n_env
-
+} // namespace mirror
 #endif /* ENVIRONMENT_HPP */

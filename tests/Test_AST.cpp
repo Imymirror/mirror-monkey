@@ -10,6 +10,7 @@
 #include "Program.hpp"
 #include "../token/Constant.hpp"
 
+using namespace mirror;
 using namespace token;
 
 using namespace std;

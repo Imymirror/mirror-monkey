@@ -3,9 +3,11 @@
 
 #include "Object.hpp"
 
+using namespace mirror;
 using namespace std;
 using namespace object;
 
+namespace mirror {
 class ReturnValue : public Object {
   public:
     shared_ptr<Object> m_value;
@@ -15,5 +17,5 @@ class ReturnValue : public Object {
     OBJECT_TYPE type() { return OBJECT_TYPE::RETURN_VALUE_OBJ; };
     string Inspect() { return m_value->Inspect(); };
 };
-
+}
 #endif /* RETURNVALUE_HPP */

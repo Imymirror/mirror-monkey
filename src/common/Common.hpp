@@ -7,6 +7,7 @@
 
 using namespace std;
 
+namespace mirror {
 namespace common {
 
 template <typename Enumeration>
@@ -19,5 +20,5 @@ auto as_integer(Enumeration const value) ->
 
 
 } // namespace common
-
+}
 #endif /* COMMON_HPP */

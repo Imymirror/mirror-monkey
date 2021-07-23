@@ -3,11 +3,12 @@
 #include "Constant.hpp"
 #include <iostream>
 
-using namespace token;
+using namespace mirror;
+using namespace mirror::token;
 
 using namespace std;
 
-map<string, TOKEN_TYPE> Token::m_keywords = {
+map<string, TOKEN_TYPE> mirror::Token::m_keywords = {
     {"fn", TOKEN_TYPE::FUNCTION},  {"let", TOKEN_TYPE::LET},
     {"true", TOKEN_TYPE::TRUE_},   {"false", TOKEN_TYPE::FALSE_},
     {"if", TOKEN_TYPE::IF},        {"else", TOKEN_TYPE::ELSE},

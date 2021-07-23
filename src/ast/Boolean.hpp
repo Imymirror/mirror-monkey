@@ -6,6 +6,7 @@
 
 using namespace std;
 
+namespace mirror {
 namespace ast {
 
 class Boolean : public Expression {
@@ -21,5 +22,5 @@ class Boolean : public Expression {
     string to_string() { return m_token->m_literal; };
 };
 } // namespace ast
-
+}
 #endif /* BOOLEAN_HPP */

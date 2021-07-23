@@ -4,6 +4,7 @@
 
 using namespace std;
 
+namespace mirror {
 namespace object {
 enum class OBJECT_TYPE {
     NULL_OBJ,  //  "NULL"
@@ -43,5 +44,5 @@ const string OBJECT_TYPE_VALUE[] = {
 };
 
 } // namespace object
-
+}
 #endif /* CONSTANT_HPP */

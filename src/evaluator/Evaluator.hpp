@@ -13,8 +13,11 @@
 #include <any>
 
 using namespace std;
+using namespace mirror;
 
 extern shared_ptr<Error> new_error(string format, ...);
+
+namespace mirror {
 
 class Evaluator {
   public:
@@ -60,5 +63,5 @@ class Evaluator {
 	shared_ptr<Object> eval_hash_literal(HashLiteral* node, Environment* env);
 	shared_ptr<Object> eval_hash_index_expression(Object *hash, Object *index); 
 };
-
+}
 #endif /* EVALUATOR_HPP */

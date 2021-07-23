@@ -7,6 +7,7 @@
 #include "catch.hpp"
 #include <string>
 
+using namespace mirror;
 using namespace std;
 
 TEST_CASE("TestStringHashKey") {

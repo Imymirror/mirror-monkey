@@ -2,9 +2,12 @@
 #define ARRAY_HPP
 
 #include "Object.hpp"
+
 using namespace std;
+using namespace mirror;
 using namespace object;
 
+namespace mirror {
 class Array : public Object {
   public:
     vector<shared_ptr<Object>> m_elements;
@@ -30,5 +33,5 @@ class Array : public Object {
     };
 };
 
-
+}
 #endif /* ARRAY_HPP */

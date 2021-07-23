@@ -17,7 +17,9 @@
 #include <string>
 
 using namespace std;
+using namespace mirror;
 
+// namespace mirror {
 extern map<string, shared_ptr<Builtin>> builtins;
 shared_ptr<Error> new_error(string format, ...);
 
@@ -211,5 +213,5 @@ inline void init_builtins() {
     init_push();
     init_puts();
 }
-
+// }
 #endif /* BUILTINS_HPP */

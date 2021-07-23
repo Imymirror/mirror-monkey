@@ -9,9 +9,11 @@
 #include "ReturnStatement.hpp"
 #include "Token.hpp"
 
+using namespace mirror;
 using namespace std;
 using namespace token;
 
+namespace mirror {
 enum class PRECEDENCE {
     LOWEST,
     EQUALS,      // ==
@@ -107,5 +109,5 @@ class Parser {
 	unique_ptr<Expression> parse_index_expression(unique_ptr<Expression> left);
 	unique_ptr<Expression> parse_hash_literal();
 };
-
+}
 #endif /* PARSER_HPP */

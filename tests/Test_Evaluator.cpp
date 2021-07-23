@@ -23,6 +23,7 @@
 #include <tuple>
 #include <typeindex>
 
+using namespace mirror;
 using namespace std;
 
 void test_null_object(Object *obj) {

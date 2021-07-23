@@ -26,6 +26,7 @@
 #include <typeindex>
 #include <utility>
 
+using namespace mirror;
 using namespace std;
 using namespace ast;
 

@@ -8,7 +8,7 @@
 #include <vector>
 
 using namespace std;
-
+namespace mirror {
 class BlockStatement : public Statement {
   public:
     std::unique_ptr<Token> m_token;
@@ -38,5 +38,5 @@ class BlockStatement : public Statement {
         return ret;
     };
 };
-
+}
 #endif /* BLOCKSTATEMENT_HPP */

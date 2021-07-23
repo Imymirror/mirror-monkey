@@ -7,6 +7,7 @@
 
 using namespace std;
 
+namespace mirror {
 class Lexer
 {
 private:
@@ -34,5 +35,5 @@ public:
 	string read_number();
 	string read_string();
 };
-
+}
 #endif /* LEXER_HPP */

@@ -2,12 +2,12 @@
 #include <algorithm>
 #include <iostream>
 #include <iterator>
-#include <memory>
 #include <string>
 
 #include "Constant.hpp"
 
-using namespace token;
+using namespace mirror;
+using namespace mirror::token;
 
 using namespace std;
 

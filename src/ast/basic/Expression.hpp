@@ -5,6 +5,8 @@
 
 using namespace std;
 
+
+namespace mirror {
 // All expression nodes implement this
 class Expression : public Node {
   public:
@@ -13,5 +15,5 @@ class Expression : public Node {
     virtual string token_literal() override { return ""; };
     virtual string to_string() override { return ""; };
 };
-
+}
 #endif /* EXPRESSION_HPP */

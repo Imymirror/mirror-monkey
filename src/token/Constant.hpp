@@ -4,6 +4,8 @@
 #include <string>
 using namespace std;
 
+namespace mirror {
+
 namespace token {
 enum class TOKEN_TYPE {
     ILLEGAL, // "ILLEGAL"
@@ -93,5 +95,5 @@ const string TOKEN_TYPE_VALUE[] = {
 };
 
 } // namespace token
-
+}
 #endif /* TOKEN_CONSTANT_HPP */

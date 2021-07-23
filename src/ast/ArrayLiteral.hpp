@@ -6,7 +6,7 @@
 #include <memory>
 
 using namespace std;
-
+namespace mirror {
 class ArrayLiteral : public Expression {
   public:
     unique_ptr<Token> m_token; // the '[' token
@@ -33,5 +33,5 @@ class ArrayLiteral : public Expression {
         return ret;
     };
 };
-
+}
 #endif /* ARRAYLITERAL_HPP */

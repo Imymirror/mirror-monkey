@@ -6,7 +6,7 @@
 #include "Token.hpp"
 
 using namespace std;
-
+namespace mirror {
 class IfExpression : public Expression {
   public:
     unique_ptr<Token> m_token; // The 'if' token
@@ -38,5 +38,5 @@ class IfExpression : public Expression {
         return ret;
     }
 };
-
+}
 #endif /* IFEXPRESSION_HPP */

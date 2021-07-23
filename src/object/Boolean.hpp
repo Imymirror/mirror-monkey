@@ -6,7 +6,7 @@
 #include <memory>
 
 using namespace std;
-
+namespace mirror {
 namespace object {
 class Boolean : public Object, public Hashable {
   public:
@@ -30,5 +30,5 @@ class Boolean : public Object, public Hashable {
 };
 
 } // namespace object
-
+}
 #endif /* OBJECT_BOOLEAN_HPP */

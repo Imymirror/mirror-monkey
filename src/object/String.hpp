@@ -5,9 +5,11 @@
 #include "Object.hpp"
 #include <memory>
 
+using namespace mirror;
 using namespace std;
 using namespace object;
 
+namespace mirror {
 class String : public Object, public Hashable {
   public:
     string m_value;
@@ -26,5 +28,5 @@ class String : public Object, public Hashable {
 		 return hk;
     };
 };
-
+}
 #endif /* STRING_HPP */

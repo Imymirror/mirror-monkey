@@ -6,8 +6,10 @@
 #include <memory>
 
 using namespace std;
+using namespace mirror;
 using namespace object;
 
+namespace mirror {
 class Integer : public Object, public Hashable {
   public:
     int64_t m_value;
@@ -25,5 +27,5 @@ class Integer : public Object, public Hashable {
 		 return hk;
     };
 };
-
+}
 #endif /* INTEGER_HPP */

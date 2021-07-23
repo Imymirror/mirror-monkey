@@ -8,10 +8,11 @@
 #include <vector>
 #include "Constant.hpp"
 
+using namespace mirror;
 using namespace object;
 
 using namespace std;
-
+namespace mirror {
 class Function : public Object {
   public:
     using t_params = shared_ptr<vector<unique_ptr<Identifier>>>;
@@ -53,5 +54,5 @@ class Function : public Object {
         return ret;
     };
 };
-
+}
 #endif /* FUNCTION_HPP */

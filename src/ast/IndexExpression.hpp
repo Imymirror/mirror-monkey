@@ -5,7 +5,7 @@
 #include "Token.hpp"
 
 using namespace std;
-
+namespace mirror {
 class IndexExpression : public Expression {
   public:
     unique_ptr<Token> m_token; // the '[' token
@@ -29,5 +29,5 @@ class IndexExpression : public Expression {
         return ret;
     };
 };
-
+}
 #endif /* INDEXEXPRESSION_HPP */

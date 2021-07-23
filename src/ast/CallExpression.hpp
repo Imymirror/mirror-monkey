@@ -5,7 +5,7 @@
 #include "Token.hpp"
 
 using namespace std;
-
+namespace mirror {
 class CallExpression : public Expression {
   public:
     unique_ptr<Token> m_token;         // The '(' token
@@ -36,5 +36,5 @@ class CallExpression : public Expression {
         return ret;
     };
 };
-
+}
 #endif /* CALLEXPRESSION_HPP */

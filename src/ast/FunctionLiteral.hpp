@@ -10,7 +10,7 @@
 #include <vector>
 
 using namespace std;
-
+namespace mirror {
 class FunctionLiteral : public Expression {
   public:
     unique_ptr<Token> m_token;
@@ -43,4 +43,5 @@ class FunctionLiteral : public Expression {
         return ret;
     };
 };
+}
 #endif /* FUNCTIONLITERAL_HPP */

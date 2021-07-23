@@ -4,7 +4,7 @@
 #include "./Constant.hpp"
 #include "Object.hpp"
 #include <memory>
-
+namespace mirror {
 class HashKey : public Object {
   public:
     object::OBJECT_TYPE m_type;
@@ -24,5 +24,5 @@ class HashKey : public Object {
         return other.m_value != m_value || m_type != other.m_type;
     };
 };
-
+}
 #endif /* HASHKEY_HPP */

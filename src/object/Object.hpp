@@ -3,13 +3,14 @@
 
 #include "./Constant.hpp"
 #include <iostream>
-#include <memory>
 #include <string>
 #include <vector>
 
+using namespace mirror;
 using namespace object;
 using namespace std;
 
+namespace mirror {
 class Object {
   public:
     virtual OBJECT_TYPE type() { return OBJECT_TYPE::NULL_OBJ; };
@@ -21,5 +22,5 @@ class Object {
     }
 };
 
-
+}
 #endif /* OBJECT_HPP */

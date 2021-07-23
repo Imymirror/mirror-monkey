@@ -6,7 +6,7 @@
 #include <memory>
 
 using namespace std;
-
+namespace mirror {
 class HashLiteral : public Expression {
   public:
     unique_ptr<Token> m_token;
@@ -39,5 +39,5 @@ class HashLiteral : public Expression {
         return "";
     };
 };
-
+}
 #endif /* HASHLITERAL_HPP */

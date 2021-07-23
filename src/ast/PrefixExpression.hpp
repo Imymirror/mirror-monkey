@@ -6,7 +6,7 @@
 #include <memory>
 
 using namespace std;
-
+namespace mirror {
 class PrefixExpression : public Expression {
   public:
     unique_ptr<Token> m_token; // The operator token, e.g. !, -
@@ -23,5 +23,5 @@ class PrefixExpression : public Expression {
         return "(" + m_operator  + m_right->to_string() + ")";
     };
 };
-
+}
 #endif /* PREFIXEXPRESSION_HPP */

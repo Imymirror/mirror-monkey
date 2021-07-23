@@ -38,6 +38,7 @@
 #include <iostream>
 #include <memory>
 
+using namespace mirror;
 using namespace object;
 using namespace std;
 

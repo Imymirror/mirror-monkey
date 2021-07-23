@@ -5,6 +5,7 @@
 
 using namespace std;
 
+namespace mirror {
 class HashPair : public Object {
   public:
     std::shared_ptr<Object> m_key;
@@ -13,5 +14,5 @@ class HashPair : public Object {
     HashPair(shared_ptr<Object> key, shared_ptr<Object> value)
         : m_key(key), m_value(value){};
 };
-
+}
 #endif /* HASHPAIR_HPP */

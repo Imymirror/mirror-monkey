@@ -6,6 +6,7 @@
 #include "catch.hpp"
 
 using namespace std;
+using namespace mirror;
 
 #include "Lexer.hpp"
 #include <iostream>

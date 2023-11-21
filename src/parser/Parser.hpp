@@ -8,13 +8,16 @@
 #include "Program.hpp"
 #include "ReturnStatement.hpp"
 #include "Token.hpp"
+#include <functional>
 
 using namespace mirror;
 using namespace std;
 using namespace token;
 
-namespace mirror {
-enum class PRECEDENCE {
+namespace mirror
+{
+  enum class PRECEDENCE
+  {
     LOWEST,
     EQUALS,      // ==
     LESSGREATER, // > or <
@@ -23,9 +26,10 @@ enum class PRECEDENCE {
     PREFIX,      // -X or !X
     CALL,        // myFunction(X)
     INDEX        // array[index]
-};
+  };
 
-class Parser {
+  class Parser
+  {
   public:
     Parser(Lexer &l);
     Parser(string input);
@@ -106,8 +110,8 @@ class Parser {
     parse_expression_list(TOKEN_TYPE end);
     unique_ptr<Expression> parse_array_literal();
     unique_ptr<Expression> parse_string_literal();
-	unique_ptr<Expression> parse_index_expression(unique_ptr<Expression> left);
-	unique_ptr<Expression> parse_hash_literal();
-};
+    unique_ptr<Expression> parse_index_expression(unique_ptr<Expression> left);
+    unique_ptr<Expression> parse_hash_literal();
+  };
 }
 #endif /* PARSER_HPP */

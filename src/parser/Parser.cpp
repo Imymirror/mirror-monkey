@@ -284,7 +284,7 @@ unique_ptr<Expression> Parser::parse_expression(PRECEDENCE precedence)
         no_prefix_parse_fn_error(m_cur_token->m_type);
         return nullptr;
     }
-
+    // excute current token function
     auto left_exp = it->second();
 
     while (!peek_token_is(TOKEN_TYPE::SEMICOLON) &&
@@ -297,7 +297,8 @@ unique_ptr<Expression> Parser::parse_expression(PRECEDENCE precedence)
         }
 
         next_token();
-        left_exp = it->second(std::move(left_exp)); // parse_infix_expression
+        // parse_infix_expression excute register function
+        left_exp = it->second(std::move(left_exp));
     }
 
     return left_exp;
@@ -313,7 +314,7 @@ Parser::parse_infix_expression(unique_ptr<Expression> left)
     next_token();
 
     expression->m_right = parse_expression(precedence);
-
+    cout << "expression left:" << expression->m_left->to_string() << " right:" << expression->m_right->to_string() << endl;
     return expression;
 }
 

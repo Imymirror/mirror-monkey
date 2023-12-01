@@ -21,7 +21,7 @@ void Repl::start(const char *fileName)
 
     if (fileName != nullptr)
     {
-        ifstream ifs(fileName, std::ifstream::in | std::ifstream::binary);
+        ifstream ifs(fileName, std::ifstream::in);
         char *buf;
         if (ifs)
         {
@@ -35,8 +35,8 @@ void Repl::start(const char *fileName)
                 cout << "read fail" << endl;
             }
             ifs.close();
+            main_process(buf, e, env);
         }
-        main_process(buf, e, env);
         return;
     }
     print_anthor_name();
@@ -46,6 +46,12 @@ void Repl::start(const char *fileName)
     {
         cout << PROMPT;
         getline(cin, line);
+        if (line.find_first_of("-f") == 0)
+        {
+            start(line.substr(3).c_str());
+            continue;
+        }
+
         main_process(line.c_str(), e, env);
     }
 }

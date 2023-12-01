@@ -5,8 +5,10 @@
 #include "Token.hpp"
 
 using namespace std;
-namespace mirror {
-class CallExpression : public Expression {
+namespace mirror
+{
+  class CallExpression : public Expression
+  {
   public:
     unique_ptr<Token> m_token;         // The '(' token
     unique_ptr<Expression> m_function; // Identifier or FunctionLiteral
@@ -18,23 +20,25 @@ class CallExpression : public Expression {
 
   public:
     string token_literal() override { return m_token->m_literal; };
-    string to_string() override {
-        string ret = "";
+    string to_string() override
+    {
+      string ret = "";
 
-        ret += m_function->to_string();
-        ret += "(";
+      ret += m_function->to_string();
+      ret += "(";
 
-        auto &arguments = *m_arguments;
-        for (int i = 0; i < arguments.size(); i++) {
-            ret += arguments[i]->to_string();
-            if (i < arguments.size() - 1)
-                ret += ", ";
-        }
+      auto &arguments = *m_arguments;
+      for (int i = 0; i < arguments.size(); i++)
+      {
+        ret += arguments[i]->to_string();
+        if (i < arguments.size() - 1)
+          ret += ", ";
+      }
 
-        ret += ")";
+      ret += ")";
 
-        return ret;
+      return ret;
     };
-};
+  };
 }
 #endif /* CALLEXPRESSION_HPP */

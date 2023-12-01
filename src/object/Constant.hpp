@@ -4,45 +4,47 @@
 
 using namespace std;
 
-namespace mirror {
-namespace object {
-enum class OBJECT_TYPE {
-    NULL_OBJ,  //  "NULL"
-    ERROR_OBJ, //  "ERROR"
+namespace mirror
+{
+    namespace object
+    {
+        enum class OBJECT_TYPE
+        {
+            NULL_OBJ,  //  "NULL"
+            ERROR_OBJ, //  "ERROR"
 
-    STRING_OBJ, // "STRING"
+            STRING_OBJ, // "STRING"
 
-    INTEGER_OBJ, //  "INTEGER"
-    BOOLEAN_OBJ, //  "BOOLEAN"
+            INTEGER_OBJ, //  "INTEGER"
+            BOOLEAN_OBJ, //  "BOOLEAN"
 
-    RETURN_VALUE_OBJ, //  "RETURN_VALUE"
+            RETURN_VALUE_OBJ, //  "RETURN_VALUE"
 
-    FUNCTION_OBJ, //  "FUNCTION"
+            FUNCTION_OBJ, //  "FUNCTION"
 
-    BUILTIN_OBJ, // "BUILTIN"
+            BUILTIN_OBJ, // "BUILTIN"
 
-    ARRAY_OBJ, //= "ARRAY"
-    HASH_OBJ,  //= "HASH"
-};
+            ARRAY_OBJ, //= "ARRAY"
+            HASH_OBJ,  //= "HASH"
+        };
 
-const string OBJECT_TYPE_VALUE[] = {
+        const string OBJECT_TYPE_VALUE[] = {
 
-    "NULL",  // NULL_OBJ
-    "ERROR", // ERROR_OBJ
-    "STRING",
+            "NULL",  // NULL_OBJ
+            "ERROR", // ERROR_OBJ
+            "STRING",
 
-    "INTEGER", // INTEGER_OBJ
-    "BOOLEAN", // BOOLEAN_OBJ
+            "INTEGER", // INTEGER_OBJ
+            "BOOLEAN", // BOOLEAN_OBJ
 
-    "RETURN_VALUE", // RETURN_VALUE_OBJ
+            "RETURN_VALUE", // RETURN_VALUE_OBJ
 
-    "FUNCTION", // FUNCTION_OBJ
-    "BUILTIN",
+            "FUNCTION", // FUNCTION_OBJ
+            "BUILTIN",
 
-    "ARRAY",
-    "HASH"
-};
+            "ARRAY",
+            "HASH"};
 
-} // namespace object
+    } // namespace object
 }
 #endif /* CONSTANT_HPP */

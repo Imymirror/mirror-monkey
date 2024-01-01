@@ -10,8 +10,10 @@
 #include <vector>
 
 using namespace std;
-namespace mirror {
-class FunctionLiteral : public Expression {
+namespace mirror
+{
+  class FunctionLiteral : public Expression
+  {
   public:
     unique_ptr<Token> m_token;
     // unique_ptr<vector<unique_ptr<Identifier>>> m_parameters;
@@ -25,23 +27,26 @@ class FunctionLiteral : public Expression {
 
   public:
     string token_literal() override { return m_token->m_literal; };
-    string to_string() override {
-        string ret = "";
+    string to_string() override
+    {
+      string ret = "";
 
-        ret += token_literal();
-        ret += "(";
-        auto &parameters = *m_parameters;
-        for (int i = 0; i < parameters.size(); i++) {
-            ret += parameters[i]->to_string();
-            if (i < parameters.size() - 1) {
-                ret += ", ";
-            }
+      ret += token_literal();
+      ret += "(";
+      auto &parameters = *m_parameters;
+      for (int i = 0; i < parameters.size(); i++)
+      {
+        ret += parameters[i]->to_string();
+        if (i < parameters.size() - 1)
+        {
+          ret += ", ";
         }
-        ret += ") ";
-        ret += m_body->to_string();
+      }
+      ret += ") ";
+      ret += m_body->to_string();
 
-        return ret;
+      return ret;
     };
-};
+  };
 }
 #endif /* FUNCTIONLITERAL_HPP */

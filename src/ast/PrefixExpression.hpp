@@ -6,8 +6,10 @@
 #include <memory>
 
 using namespace std;
-namespace mirror {
-class PrefixExpression : public Expression {
+namespace mirror
+{
+  class PrefixExpression : public Expression
+  {
   public:
     unique_ptr<Token> m_token; // The operator token, e.g. !, -
     string m_operator;
@@ -19,9 +21,10 @@ class PrefixExpression : public Expression {
 
   public:
     string token_literal() { return m_token->m_literal; };
-    string to_string() {
-        return "(" + m_operator  + m_right->to_string() + ")";
+    string to_string()
+    {
+      return "(" + m_operator + m_right->to_string() + ")";
     };
-};
+  };
 }
 #endif /* PREFIXEXPRESSION_HPP */

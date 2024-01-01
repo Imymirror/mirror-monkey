@@ -5,6 +5,7 @@ target_sources(repl
     Repl.cpp
   PUBLIC
     ${CMAKE_CURRENT_LIST_DIR}/Repl.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/../lexer/Lexer.hpp
   )
 
 target_include_directories(repl 

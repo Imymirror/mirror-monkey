@@ -8,8 +8,10 @@
 #include <memory>
 
 using namespace std;
-namespace mirror {
-class ExpressionStatement : public Statement {
+namespace mirror
+{
+  class ExpressionStatement : public Statement
+  {
   public:
     unique_ptr<Token> m_token; // the token.LET token
     unique_ptr<Expression> m_expression;
@@ -19,10 +21,11 @@ class ExpressionStatement : public Statement {
 
   public:
     string token_literal() { return m_token->m_literal; };
-    string to_string() {
-        string ret = m_expression->to_string();
-        return ret;
+    string to_string()
+    {
+      string ret = m_expression->to_string();
+      return ret;
     };
-};
+  };
 } // namespace mirror
 #endif /* EXPRESSIONSTATEMENT_HPP */

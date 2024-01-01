@@ -7,18 +7,17 @@
 
 using namespace std;
 
-namespace mirror {
-namespace common {
+namespace mirror
+{
+    namespace common
+    {
 
-template <typename Enumeration>
-auto as_integer(Enumeration const value) ->
-    typename std::underlying_type<Enumeration>::type {
-    return static_cast<typename std::underlying_type<Enumeration>::type>(value);
-}
+        template <typename Enumeration>
+        auto as_integer(Enumeration const value) -> typename std::underlying_type<Enumeration>::type
+        {
+            return static_cast<typename std::underlying_type<Enumeration>::type>(value);
+        }
 
-
-
-
-} // namespace common
+    } // namespace common
 }
 #endif /* COMMON_HPP */

@@ -6,8 +6,10 @@
 #include "Token.hpp"
 
 using namespace std;
-namespace mirror {
-class IfExpression : public Expression {
+namespace mirror
+{
+  class IfExpression : public Expression
+  {
   public:
     unique_ptr<Token> m_token; // The 'if' token
     unique_ptr<Expression> m_condition;
@@ -19,24 +21,26 @@ class IfExpression : public Expression {
 
   public:
     string token_literal() { return m_token->m_literal; }
-    string to_string() {
-        string ret = "";
+    string to_string()
+    {
+      string ret = "";
 
-        ret += "if";
+      ret += "if";
 
-        ret += m_condition->to_string();
+      ret += m_condition->to_string();
 
-        ret += " ";
+      ret += " ";
 
-        ret += m_consequence->to_string();
+      ret += m_consequence->to_string();
 
-        if (m_alternative != nullptr) {
-            ret += "else ";
-            ret += m_alternative->to_string();
-        }
+      if (m_alternative != nullptr)
+      {
+        ret += "else ";
+        ret += m_alternative->to_string();
+      }
 
-        return ret;
+      return ret;
     }
-};
+  };
 }
 #endif /* IFEXPRESSION_HPP */

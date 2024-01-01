@@ -8,9 +8,11 @@
 
 using namespace std;
 
-namespace mirror {
-// Expressions
-class Identifier : public Expression {
+namespace mirror
+{
+  // Expressions
+  class Identifier : public Expression
+  {
   public:
     unique_ptr<Token> m_token; // the token.IDENT token
     string m_value;
@@ -25,6 +27,6 @@ class Identifier : public Expression {
   public:
     string token_literal() { return m_token->m_literal; };
     string to_string() { return m_value; };
-};
+  };
 }
 #endif /* IDENTIFIER_HPP */

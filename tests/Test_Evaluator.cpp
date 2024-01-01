@@ -26,18 +26,19 @@
 using namespace mirror;
 using namespace std;
 
-void test_null_object(Object *obj) {
+void test_null_object(Object *obj)
+{
     auto cast_obj = static_cast<Null *>(obj);
     REQUIRE(obj->type() == object::OBJECT_TYPE::NULL_OBJ);
 
     REQUIRE((obj->Inspect() == "null"));
 }
 
-shared_ptr<Object> test_eval(string input) {
+shared_ptr<Object> test_eval(string input)
+{
     Lexer l(input);
     Parser p(l);
     auto program = p.parse_program();
-
 
     // for (auto tok = l.next_token(); (*tok).m_type != TOKEN_TYPE::EOF_;
     //     tok = l.next_token()) {
@@ -50,17 +51,20 @@ shared_ptr<Object> test_eval(string input) {
     return e.eval(program.get(), env.get());
 }
 
-void test_integer_object(Object &obj, int64_t expected) {
+void test_integer_object(Object &obj, int64_t expected)
+{
     auto &result = static_cast<Integer &>(obj);
     REQUIRE(result.m_value == expected);
 }
 
-void test_boolean_object(Object &obj, bool expected) {
+void test_boolean_object(Object &obj, bool expected)
+{
     auto &result = static_cast<object::Boolean &>(obj);
     REQUIRE(result.m_value == expected);
 }
 
-TEST_CASE("test eval integer expression") {
+TEST_CASE("test eval integer expression")
+{
 
     vector<std::tuple<string, int64_t>> tests = {
         {"5", 5},
@@ -80,7 +84,8 @@ TEST_CASE("test eval integer expression") {
         {"(5 + 10 * 2 + 15 / 3) * 2 + -10", 50},
     };
 
-    for (int i = 0; i < tests.size(); i++) {
+    for (int i = 0; i < tests.size(); i++)
+    {
         auto test = tests[i];
         auto input = get<0>(test);
         auto expected_value = get<1>(test);
@@ -90,7 +95,8 @@ TEST_CASE("test eval integer expression") {
     }
 }
 
-TEST_CASE("test eval boolean expression") {
+TEST_CASE("test eval boolean expression")
+{
     vector<tuple<string, bool>> tests = {
         {"true", true},
         {"false", false},
@@ -113,7 +119,8 @@ TEST_CASE("test eval boolean expression") {
         {"(1 > 2) == false", true},
     };
 
-    for (int i = 0; i < tests.size(); i++) {
+    for (int i = 0; i < tests.size(); i++)
+    {
         auto test = tests[i];
         auto input = get<0>(test);
         auto expected_value = get<1>(test);
@@ -123,13 +130,19 @@ TEST_CASE("test eval boolean expression") {
     }
 }
 
-TEST_CASE("test bang operator") {
+TEST_CASE("test bang operator")
+{
     vector<tuple<string, bool>> tests = {
-        {"!true", false}, {"!false", true},   {"!5", false},
-        {"!!true", true}, {"!!false", false}, {"!!5", true},
+        {"!true", false},
+        {"!false", true},
+        {"!5", false},
+        {"!!true", true},
+        {"!!false", false},
+        {"!!5", true},
     };
 
-    for (int i = 0; i < tests.size(); i++) {
+    for (int i = 0; i < tests.size(); i++)
+    {
         auto test = tests[i];
         auto input = get<0>(test);
         auto expected_value = get<1>(test);
@@ -139,7 +152,8 @@ TEST_CASE("test bang operator") {
     }
 }
 
-TEST_CASE("TestIfElseExpressions") {
+TEST_CASE("TestIfElseExpressions")
+{
     vector<tuple<string, any>> tests = {
         {"if (true) { 10 }", 10},
         {"if (false) { 10 }", nullptr},
@@ -150,7 +164,8 @@ TEST_CASE("TestIfElseExpressions") {
         {"if (1 < 2) { 10 } else { 20 }", 10},
     };
 
-    for (int i = 0; i < tests.size(); i++) {
+    for (int i = 0; i < tests.size(); i++)
+    {
         auto test = tests[i];
 
         auto input = get<0>(test);
@@ -159,18 +174,21 @@ TEST_CASE("TestIfElseExpressions") {
         auto evaluated = test_eval(input);
 
         auto expected_value_type = std::type_index(expected_value.type());
-        if (expected_value_type == std::type_index(typeid(int))) {
+        if (expected_value_type == std::type_index(typeid(int)))
+        {
             test_integer_object(*evaluated, any_cast<int>(expected_value));
         }
 
-        if (expected_value_type == std::type_index(typeid(nullptr))) {
+        if (expected_value_type == std::type_index(typeid(nullptr)))
+        {
 
             test_null_object(evaluated.get());
         }
     }
 }
 
-TEST_CASE("TestReturnStatements") {
+TEST_CASE("TestReturnStatements")
+{
 
     vector<tuple<string, int64_t>> tests = {
         {"return 10;", 10},
@@ -211,18 +229,19 @@ f(10);)",
         },
     };
 
-    for (int i = 0; i < tests.size(); i++) {
+    for (int i = 0; i < tests.size(); i++)
+    {
         auto test = tests[i];
         auto input = get<0>(test);
         auto expected_value = get<1>(test);
-
 
         auto evaluated = test_eval(input);
         test_integer_object(*evaluated, expected_value);
     }
 }
 
-TEST_CASE("test error handling") {
+TEST_CASE("test error handling")
+{
     vector<tuple<string, string>> tests = {
         {
             "5 + true;",
@@ -273,7 +292,8 @@ TEST_CASE("test error handling") {
         },
     };
 
-    for (int i = 0; i < tests.size(); i++) {
+    for (int i = 0; i < tests.size(); i++)
+    {
         auto test = tests[i];
         auto input = get<0>(test);
         auto expected_value = get<1>(test);
@@ -283,10 +303,10 @@ TEST_CASE("test error handling") {
         auto err_obj = dynamic_cast<Error *>(evaluated.get());
 
         REQUIRE(err_obj->m_message == expected_value);
-
     }
 }
-TEST_CASE("TestLetStatements") {
+TEST_CASE("TestLetStatements")
+{
     vector<tuple<string, int64_t>> tests = {
         {"let a = 5; a;", 5},
         {"let a = 5 * 5; a;", 25},
@@ -294,7 +314,8 @@ TEST_CASE("TestLetStatements") {
         {"let a = 5; let b = a; let c = a + b + 5; c;", 15},
     };
 
-    for (int i = 0; i < tests.size(); i++) {
+    for (int i = 0; i < tests.size(); i++)
+    {
         auto test = tests[i];
         auto input = get<0>(test);
         auto expected_value = get<1>(test);
@@ -304,7 +325,8 @@ TEST_CASE("TestLetStatements") {
     }
 }
 
-TEST_CASE("TestFunctionObject") {
+TEST_CASE("TestFunctionObject")
+{
     auto input = "fn(x) { x + 2; };";
 
     auto evaluated = test_eval(input);
@@ -316,7 +338,8 @@ TEST_CASE("TestFunctionObject") {
     REQUIRE(fn->m_body->to_string() == "(x + 2)");
 }
 
-TEST_CASE("TestFunctionApplication") {
+TEST_CASE("TestFunctionApplication")
+{
     vector<tuple<string, int64_t>> tests = {
         {"let identity = fn(x) { x; }; identity(5);", 5},
         {"let identity = fn(x) { return x; }; identity(5);", 5},
@@ -326,7 +349,8 @@ TEST_CASE("TestFunctionApplication") {
         {"fn(x) { x; }(5)", 5},
     };
 
-    for (int i = 0; i < tests.size(); i++) {
+    for (int i = 0; i < tests.size(); i++)
+    {
         auto test = tests[i];
         auto input = get<0>(test);
         auto expected_value = get<1>(test);
@@ -335,7 +359,8 @@ TEST_CASE("TestFunctionApplication") {
         test_integer_object(*evaluated, expected_value);
     }
 }
-TEST_CASE("TestEnclosingEnvironments") {
+TEST_CASE("TestEnclosingEnvironments")
+{
     auto input = R"(
 let first = 10;
 let second = 10;
@@ -355,7 +380,8 @@ ourFunction(20) + first + second;
 }
 
 TEST_CASE("TestClosures") {}
-TEST_CASE("TestStringLiteral") {
+TEST_CASE("TestStringLiteral")
+{
     auto input = R"("Hello World!")";
 
     auto evaluated = test_eval(input);
@@ -364,7 +390,8 @@ TEST_CASE("TestStringLiteral") {
     REQUIRE(str->m_value == "Hello World!");
 }
 
-TEST_CASE("TestStringConcatenation") {
+TEST_CASE("TestStringConcatenation")
+{
     auto input = R"("Hello" + " " + "World!")";
 
     auto evaluated = test_eval(input);
@@ -373,7 +400,8 @@ TEST_CASE("TestStringConcatenation") {
     REQUIRE(str->m_value == "Hello World!");
 }
 
-TEST_CASE("TestBuiltinFunctions") {
+TEST_CASE("TestBuiltinFunctions")
+{
     vector<tuple<string, any>> tests = {
         {R"(len(""))", 0},
         {R"(len("four"))", 4},
@@ -397,7 +425,8 @@ TEST_CASE("TestBuiltinFunctions") {
         {R"(push(1, 1))", "argument to `push` must be ARRAY, got INTEGER"},
     };
 
-    for (int i = 0; i < tests.size(); i++) {
+    for (int i = 0; i < tests.size(); i++)
+    {
         auto test = tests[i];
         auto input = get<0>(test);
         auto expected_value = get<1>(test);
@@ -406,23 +435,31 @@ TEST_CASE("TestBuiltinFunctions") {
 
         auto t_index = std::type_index(expected_value.type());
 
-        if (t_index == std::type_index(typeid(int))) {
+        if (t_index == std::type_index(typeid(int)))
+        {
             auto expected_p = std::any_cast<int>(expected_value);
             test_integer_object(*evaluated, expected_p);
-        } else if (t_index == std::type_index(typeid(string))) {
+        }
+        else if (t_index == std::type_index(typeid(string)))
+        {
             auto err = static_cast<Error *>(evaluated.get());
             auto expected_cast = std::any_cast<string>(expected_value);
             REQUIRE(err->m_message == expected_cast);
-        } else if (t_index == std::type_index(typeid(nullptr))) {
+        }
+        else if (t_index == std::type_index(typeid(nullptr)))
+        {
             auto cast_node = static_cast<Null *>(evaluated.get());
             test_null_object(evaluated.get());
-        } else if (t_index == std::type_index(typeid(vector<int>))) {
+        }
+        else if (t_index == std::type_index(typeid(vector<int>)))
+        {
             auto cast_node = static_cast<Array *>(evaluated.get());
             auto cast_expected = any_cast<vector<int>>(expected_value);
 
             REQUIRE(cast_node->m_elements.size() == cast_expected.size());
 
-            for (int i = 0; i < cast_expected.size(); i++) {
+            for (int i = 0; i < cast_expected.size(); i++)
+            {
                 test_integer_object(*cast_node->m_elements[i],
                                     cast_expected[i]);
             }
@@ -430,7 +467,8 @@ TEST_CASE("TestBuiltinFunctions") {
     }
 }
 
-TEST_CASE("TestArrayLiterals") {
+TEST_CASE("TestArrayLiterals")
+{
     string input = "[1, 2 * 2, 3 + 3]";
 
     auto evaluated = test_eval(input);
@@ -443,7 +481,8 @@ TEST_CASE("TestArrayLiterals") {
     test_integer_object(*result->m_elements[2], 6);
 }
 
-TEST_CASE("TestArrayIndexExpressions") {
+TEST_CASE("TestArrayIndexExpressions")
+{
     vector<tuple<string, any>> tests = {
         {
             "[1, 2, 3][0]",
@@ -487,22 +526,27 @@ TEST_CASE("TestArrayIndexExpressions") {
         },
     };
 
-    for (int i = 0; i < tests.size(); i++) {
+    for (int i = 0; i < tests.size(); i++)
+    {
         auto test = tests[i];
         auto input = get<0>(test);
         auto expected = get<1>(test);
 
         auto evaluated = test_eval(input);
         auto integer = any_cast<int>(expected);
-        if (integer) {
+        if (integer)
+        {
             test_integer_object(*evaluated, integer);
-        } else {
+        }
+        else
+        {
             test_null_object(evaluated.get());
         }
     }
 }
 
-TEST_CASE("TestDriving Arrays") {
+TEST_CASE("TestDriving Arrays")
+{
     {
         string input = R"(
 	let map = fn(arr, f) {
@@ -552,7 +596,8 @@ TEST_CASE("TestDriving Arrays") {
     }
 }
 
-TEST_CASE("TestHashLiterals") {
+TEST_CASE("TestHashLiterals")
+{
     string input = R"(
 	let two = "two";
 		{
@@ -581,7 +626,8 @@ TEST_CASE("TestHashLiterals") {
     REQUIRE(result->m_pairs->size() == expected.size());
 
     auto it = expected.begin();
-    while (it != expected.end()) {
+    while (it != expected.end())
+    {
         auto pairs = *(*result).m_pairs;
         auto hash_key = it->first;
         auto pair = pairs[hash_key];
@@ -590,7 +636,8 @@ TEST_CASE("TestHashLiterals") {
     }
 }
 
-TEST_CASE("TestHashIndexExpressions") {
+TEST_CASE("TestHashIndexExpressions")
+{
 
     vector<tuple<string, any>> tests = {
         {
@@ -623,18 +670,22 @@ TEST_CASE("TestHashIndexExpressions") {
         },
     };
 
-    for (int i = 0; i < tests.size(); i++) {
+    for (int i = 0; i < tests.size(); i++)
+    {
         auto test = tests[i];
         auto input = get<0>(test);
         auto expected_value = get<1>(test);
 
         auto evaluated = test_eval(input);
 
-        try {
+        try
+        {
             auto integer = any_cast<int>(expected_value);
 
             test_integer_object(*evaluated, integer);
-        } catch (const std::bad_any_cast &e) {
+        }
+        catch (const std::bad_any_cast &e)
+        {
             // std::cout << e.what() << '\n';
             test_null_object(evaluated.get());
         }

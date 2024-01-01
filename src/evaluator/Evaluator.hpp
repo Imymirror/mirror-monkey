@@ -17,9 +17,11 @@ using namespace mirror;
 
 extern shared_ptr<Error> new_error(string format, ...);
 
-namespace mirror {
+namespace mirror
+{
 
-class Evaluator {
+  class Evaluator
+  {
   public:
     Evaluator() { init_builtins(); }
 
@@ -59,9 +61,9 @@ class Evaluator {
     shared_ptr<Object> eval_string_infix_expression(string op, Object *left,
                                                     Object *right);
     shared_ptr<Object> eval_index_expression(Object *left, Object *index);
-	shared_ptr<Object> eval_array_index_expression(Object * left, Object * index);
-	shared_ptr<Object> eval_hash_literal(HashLiteral* node, Environment* env);
-	shared_ptr<Object> eval_hash_index_expression(Object *hash, Object *index); 
-};
+    shared_ptr<Object> eval_array_index_expression(Object *left, Object *index);
+    shared_ptr<Object> eval_hash_literal(HashLiteral *node, Environment *env);
+    shared_ptr<Object> eval_hash_index_expression(Object *hash, Object *index);
+  };
 }
 #endif /* EVALUATOR_HPP */

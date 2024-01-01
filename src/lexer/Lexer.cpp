@@ -11,37 +11,49 @@ using namespace mirror::token;
 
 using namespace std;
 
-Lexer::Lexer(std::string &str) : m_input(str.begin(), str.end()) {
+Lexer::Lexer(std::string &str) : m_input(str.begin(), str.end())
+{
     read_char();
 }
 
-Lexer::~Lexer() {
+Lexer::~Lexer()
+{
 }
 
-void Lexer::read_char() {
-    if (m_readPosition >= m_input.size()) {
+void Lexer::read_char()
+{
+    if (m_readPosition >= m_input.size())
+    {
         m_ch = 0;
-    } else {
+    }
+    else
+    {
         m_ch = m_input[m_readPosition];
     }
 
     m_position = m_readPosition++;
 }
 
-void Lexer::skip_whitespace() {
+void Lexer::skip_whitespace()
+{
     while (m_ch == ' ' || m_ch == '\t' || m_ch == '\n' || m_ch == '\r')
         read_char();
 }
 
-unique_ptr<Token> Lexer::next_token() {
+unique_ptr<Token> Lexer::next_token()
+{
     unique_ptr<Token> tok;
     skip_whitespace();
 
-    switch (m_ch) {
+    switch (m_ch)
+    {
     case '=':
-        if (peed_char() == '=') {
+        if (peed_char() == '=')
+        {
             tok = make_unique<Token>(TOKEN_TYPE::EQ, capture_char(2));
-        } else {
+        }
+        else
+        {
             tok = make_unique<Token>(TOKEN_TYPE::ASSIGN, string(1, m_ch));
         }
         break;
@@ -52,9 +64,12 @@ unique_ptr<Token> Lexer::next_token() {
         tok = make_unique<Token>(TOKEN_TYPE::MINUS, string(1, m_ch));
         break;
     case '!':
-        if (peed_char() == '=') {
+        if (peed_char() == '=')
+        {
             tok = make_unique<Token>(TOKEN_TYPE::NOT_EQ, capture_char(2));
-        } else {
+        }
+        else
+        {
             tok = make_unique<Token>(TOKEN_TYPE::BANG, string(1, m_ch));
         }
         break;
@@ -104,15 +119,20 @@ unique_ptr<Token> Lexer::next_token() {
         tok = make_unique<Token>(TOKEN_TYPE::EOF_, string(""));
         break;
     default:
-        if (is_letter(m_ch)) {
+        if (is_letter(m_ch))
+        {
             string literal = read_identifier();
             tok = make_unique<Token>(Token::lookup_ident(literal), literal);
             return tok;
-        } else if (is_digit(m_ch)) {
+        }
+        else if (is_digit(m_ch))
+        {
             string literal = read_number();
             tok = make_unique<Token>(TOKEN_TYPE::INT, literal);
             return tok;
-        } else {
+        }
+        else
+        {
             tok = make_unique<Token>(TOKEN_TYPE::ILLEGAL, string(1, m_ch));
         }
 
@@ -123,19 +143,25 @@ unique_ptr<Token> Lexer::next_token() {
     return tok;
 }
 
-char Lexer::peed_char() {
-    if (m_readPosition >= m_input.size()) {
+char Lexer::peed_char()
+{
+    if (m_readPosition >= m_input.size())
+    {
         return 0;
-    } else {
+    }
+    else
+    {
         return m_input[m_readPosition];
     }
 }
 
-string Lexer::capture_char(int number) {
+string Lexer::capture_char(int number)
+{
 
     string literal(1, m_ch);
 
-    while (--number > 0) {
+    while (--number > 0)
+    {
         read_char();
         literal += m_ch;
     }
@@ -143,26 +169,31 @@ string Lexer::capture_char(int number) {
     return literal;
 }
 
-bool Lexer::is_letter(char ch) {
+bool Lexer::is_letter(char ch)
+{
     return ('a' <= ch && ch <= 'z') || ('A' <= ch && ch <= 'Z') || ch == '_';
 }
 
 bool Lexer::is_digit(char ch) { return '0' <= ch && ch <= '9'; }
 
-string Lexer::read_identifier() {
+string Lexer::read_identifier()
+{
     vector<char> v;
 
-    while (is_letter(m_ch)) {
+    while (is_letter(m_ch))
+    {
         v.push_back(m_ch);
         read_char();
     }
     return string(v.begin(), v.end());
 }
 
-string Lexer::read_number() {
+string Lexer::read_number()
+{
     vector<char> v;
 
-    while (is_digit(m_ch)) {
+    while (is_digit(m_ch))
+    {
         v.push_back(m_ch);
         read_char();
     }
@@ -170,13 +201,16 @@ string Lexer::read_number() {
     return string(v.begin(), v.end());
 }
 
-string Lexer::read_string() {
+string Lexer::read_string()
+{
     // a different implementation , not like read_number, ugly
     auto position = m_position + 1;
-    for (int i = 0; i < 20; i++) {
+    for (int i = 0; i < 20; i++)
+    {
         read_char();
 
-        if (m_ch == '"' || m_ch == 0) {
+        if (m_ch == '"' || m_ch == 0)
+        {
             break;
         }
     }
